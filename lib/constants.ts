@@ -45,6 +45,8 @@ export const investmentProjects = [
     riskLevel: "Sedang",
     description: "Budidaya cabai rawit organik dengan sistem hidroponik modern",
     image: "/placeholder.svg?height=200&width=300",
+    estimasiPanenKg: 1000,      // Total panen cabai rawit (kg)
+    estimasiHarga: 12000        // Harga jual per kg (Rp)
   },
   {
     id: "2",
@@ -59,6 +61,8 @@ export const investmentProjects = [
     riskLevel: "Rendah",
     description: "Budidaya bayam merah premium untuk pasar ekspor",
     image: "/placeholder.svg?height=200&width=300",
+    estimasiPanenKg: 500,       // Total panen bayam merah (kg)
+    estimasiHarga: 10000        // Harga jual per kg (Rp)
   },
 ]
 

@@ -76,8 +76,8 @@ export function CrowdfarmingContent() {
               </SelectTrigger>
               <SelectContent>
                 {investmentProjects.map((project) => (
-                  <SelectItem key={project.value} value={project.value}>
-                    {project.label}
+                  <SelectItem key={project.id} value={project}>
+                    {project.name}
                   </SelectItem>
                 ))}
               </SelectContent>

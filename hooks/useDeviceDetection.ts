@@ -3,39 +3,57 @@
 import { useState, useEffect } from "react"
 
 export function useDeviceDetection() {
-  const [isMobile, setIsMobile] = useState(false)
-  const [isTablet, setIsTablet] = useState(false)
-  const [isDesktop, setIsDesktop] = useState(false)
-  const [screenWidth, setScreenWidth] = useState(0)
+  const [isMobile, setIsMobile] = useState(true)
+  const [screenSize, setScreenSize] = useState<string>("mobile")
 
   useEffect(() => {
     const checkDevice = () => {
       const width = window.innerWidth
-      setScreenWidth(width)
+      const userAgent = navigator.userAgent
 
-      // Mobile: < 768px
-      // Tablet: 768px - 1024px
-      // Desktop: > 1024px
-      setIsMobile(width < 768)
-      setIsTablet(width >= 768 && width <= 1024)
-      setIsDesktop(width > 1024)
+      // Check if it's a mobile device
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
+      const isMobileWidth = width <= 1024
+
+      setIsMobile(isMobileDevice || isMobileWidth)
+
+      // Set screen size category
+      if (width <= 374) {
+        setScreenSize("xs")
+      } else if (width <= 389) {
+        setScreenSize("sm")
+      } else if (width <= 427) {
+        setScreenSize("md")
+      } else if (width <= 479) {
+        setScreenSize("lg")
+      } else if (width <= 767) {
+        setScreenSize("xl")
+      } else if (width <= 1024) {
+        setScreenSize("tablet")
+      } else {
+        setScreenSize("desktop")
+      }
     }
 
-    // Check on mount
     checkDevice()
-
-    // Add event listener for resize
     window.addEventListener("resize", checkDevice)
+    window.addEventListener("orientationchange", checkDevice)
 
-    // Cleanup
-    return () => window.removeEventListener("resize", checkDevice)
+    return () => {
+      window.removeEventListener("resize", checkDevice)
+      window.removeEventListener("orientationchange", checkDevice)
+    }
   }, [])
 
   return {
     isMobile,
-    isTablet,
-    isDesktop,
-    screenWidth,
-    isMobileOrTablet: isMobile || isTablet,
+    screenSize,
+    isXS: screenSize === "xs",
+    isSM: screenSize === "sm",
+    isMD: screenSize === "md",
+    isLG: screenSize === "lg",
+    isXL: screenSize === "xl",
+    isTablet: screenSize === "tablet",
+    isDesktop: screenSize === "desktop",
   }
 }

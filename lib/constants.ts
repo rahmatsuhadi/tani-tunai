@@ -1,12 +1,61 @@
-import { Home, SproutIcon as Seedling, Grid3X3, ShoppingBasket, User } from "lucide-react"
-import type { NavigationItem, ReserveDataPetani, ReserveDataKonsumen, Project } from "@/types"
+import { Home, ShoppingCart, Wrench, User, SproutIcon as Seedling } from "lucide-react"
+import type { NavigationItem, Project, ReserveDataPetani, ReserveDataKonsumen } from "@/types"
 
 export const navigationItems: NavigationItem[] = [
-  { id: "home", label: "Beranda", icon: Home, roles: ["petani", "konsumen"] },
-  { id: "preorder", label: "Pre-order", icon: Seedling, roles: ["petani", "konsumen"] },
-  { id: "layanan", label: "Layanan", icon: Grid3X3, roles: ["petani", "konsumen"] },
-  { id: "keranjang", label: "Keranjang", icon: ShoppingBasket, roles: ["konsumen"] },
-  { id: "profil", label: "Profil", icon: User, roles: ["petani", "konsumen"] },
+  {
+    id: "beranda",
+    label: "Beranda",
+    icon: Home,
+    roles: ["petani", "konsumen", "investor"],
+  },
+  {
+    id: "preorder",
+    label: "Pre-order",
+    icon: Seedling,
+    roles: ["petani", "konsumen", "investor"],
+  },
+  {
+    id: "layanan",
+    label: "Layanan",
+    icon: Wrench,
+    roles: ["petani", "konsumen", "investor"],
+  },
+  {
+    id: "keranjang",
+    label: "Keranjang",
+    icon: ShoppingCart,
+    roles: ["konsumen"],
+  },
+  {
+    id: "profil",
+    label: "Profil",
+    icon: User,
+    roles: ["petani", "konsumen", "investor"],
+  },
+]
+
+export const investmentProjects: Project[] = [
+  {
+    value: "cabai-rawit",
+    label: "Cabai Rawit (Bapak Budi)",
+    modal: 8000000,
+    estimasiPanenKg: 400,
+    estimasiHarga: 20000,
+  },
+  {
+    value: "bayam-merah",
+    label: "Bayam Merah (Ibu Siti)",
+    modal: 2000000,
+    estimasiPanenKg: 100,
+    estimasiHarga: 25000,
+  },
+  {
+    value: "wortel-organik",
+    label: "Wortel Organik (Bapak Joni)",
+    modal: 5000000,
+    estimasiPanenKg: 250,
+    estimasiHarga: 22000,
+  },
 ]
 
 export const dummyPetaniReserveData: ReserveDataPetani[] = [
@@ -52,26 +101,40 @@ export const dummyKonsumenReserveData: ReserveDataKonsumen[] = [
   },
 ]
 
-export const investmentProjects: Project[] = [
+export const komoditasData = [
+  { name: "Padi", trend: "naik", price: "Rp 6.500/kg", change: "+5%" },
+  { name: "Jagung", trend: "turun", price: "Rp 4.200/kg", change: "-2%" },
+  { name: "Kedelai", trend: "naik", price: "Rp 8.500/kg", change: "+8%" },
+  { name: "Cabai", trend: "naik", price: "Rp 35.000/kg", change: "+15%" },
+  { name: "Bawang Merah", trend: "turun", price: "Rp 28.000/kg", change: "-3%" },
+]
+
+export const pakarData = [
   {
-    value: "cabai-rawit",
-    label: "Cabai Rawit (Bapak Budi)",
-    modal: 8000000,
-    estimasiPanenKg: 400,
-    estimasiHarga: 20000,
+    id: 1,
+    name: "Dr. Siti Nurhaliza",
+    specialty: "Ahli Tanaman Pangan",
+    rating: 4.8,
+    experience: "15 tahun",
+    avatar: "/placeholder-user.jpg",
+    status: "online",
   },
   {
-    value: "bayam-merah",
-    label: "Bayam Merah (Ibu Siti)",
-    modal: 2000000,
-    estimasiPanenKg: 100,
-    estimasiHarga: 25000,
+    id: 2,
+    name: "Prof. Budi Santoso",
+    specialty: "Ahli Hama & Penyakit",
+    rating: 4.9,
+    experience: "20 tahun",
+    avatar: "/placeholder-user.jpg",
+    status: "online",
   },
   {
-    value: "wortel-organik",
-    label: "Wortel Organik (Bapak Joni)",
-    modal: 5000000,
-    estimasiPanenKg: 250,
-    estimasiHarga: 22000,
+    id: 3,
+    name: "Dr. Maya Sari",
+    specialty: "Ahli Nutrisi Tanaman",
+    rating: 4.7,
+    experience: "12 tahun",
+    avatar: "/placeholder-user.jpg",
+    status: "offline",
   },
 ]

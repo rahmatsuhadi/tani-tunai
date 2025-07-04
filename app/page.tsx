@@ -1,52 +1,42 @@
 "use client"
 
 import { useState } from "react"
-import { RoleSelection } from "@/components/layout/RoleSelection"
 import { Header } from "@/components/layout/Header"
 import { BottomNavigation } from "@/components/layout/BottomNavigation"
+import { RoleSelection } from "@/components/layout/RoleSelection"
+import { DesktopWarning } from "@/components/layout/DesktopWarning"
 import { HomeContent } from "@/components/features/HomeContent"
 import { PreorderContent } from "@/components/features/PreorderContent"
-import { ToolsContent } from "@/components/features/ToolsContent"
-import { CommunicationContent } from "@/components/features/CommunicationContent"
-import { KeranjangContent } from "@/components/features/KeranjangContent"
-import { DanaCadanganContent } from "@/components/features/DanaCadanganContent"
-import { useLocalStorage } from "@/hooks/useLocalStorage"
-import { dummyPetaniReserveData, dummyKonsumenReserveData } from "@/lib/constants"
-import type { UserRole, ActiveFeature, CartItem } from "@/types"
-import { useDeviceDetection } from "@/hooks/useDeviceDetection"
-import { DesktopWarning } from "@/components/layout/DesktopWarning"
 import { LayananContent } from "@/components/features/LayananContent"
+import { KeranjangContent } from "@/components/features/KeranjangContent"
 import { ProfilContent } from "@/components/features/ProfilContent"
+import { useLocalStorage } from "@/hooks/useLocalStorage"
+import { useDeviceDetection } from "@/hooks/useDeviceDetection"
+import type { UserRole, ActiveFeature, CartItem } from "@/types"
 
 export default function TunaiTaniApp() {
-  const [currentUserRole, setCurrentUserRole] = useState<UserRole>(null)
-  const [activeFeature, setActiveFeature] = useState<ActiveFeature>("home")
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("tunaiTaniCart", [])
-  const [showRoleSelection, setShowRoleSelection] = useState(true)
+  const { isMobile } = useDeviceDetection()
+  const [currentUserRole, setCurrentUserRole] = useLocalStorage<UserRole>("userRole", null)
+  const [activeFeature, setActiveFeature] = useState<ActiveFeature>("beranda")
+  const [showRoleSelection, setShowRoleSelection] = useState(false)
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cartItems", [])
 
-  const { isMobileOrTablet } = useDeviceDetection()
-
-  // Show desktop warning if not mobile or tablet
-  if (!isMobileOrTablet) {
+  // Show desktop warning if not mobile/tablet
+  if (!isMobile) {
     return <DesktopWarning />
   }
 
-  const selectRole = (role: UserRole) => {
-    setCurrentUserRole(role)
-    setShowRoleSelection(false)
-    setActiveFeature("home")
-  }
-
-  const changeRole = () => {
-    setCurrentUserRole(null)
-    setShowRoleSelection(true)
-    setCartItems([])
-  }
-
-  const logout = () => {
-    setCurrentUserRole(null)
-    setShowRoleSelection(true)
-    setCartItems([])
+  // Show role selection if no role is selected
+  if (!currentUserRole || showRoleSelection) {
+    return (
+      <RoleSelection
+        onSelectRole={(role) => {
+          setCurrentUserRole(role)
+          setShowRoleSelection(false)
+          setActiveFeature("beranda")
+        }}
+      />
+    )
   }
 
   const addToCart = (item: Omit<CartItem, "reserveFund"> & { amount: number }) => {
@@ -72,57 +62,34 @@ export default function TunaiTaniApp() {
     setCartItems(updatedCart)
   }
 
-  if (showRoleSelection) {
-    return <RoleSelection onSelectRole={selectRole} />
-  }
-
   const renderContent = () => {
     switch (activeFeature) {
-      case "home":
+      case "beranda":
         return <HomeContent currentUserRole={currentUserRole} />
       case "preorder":
         return <PreorderContent currentUserRole={currentUserRole} onAddToCart={addToCart} />
-      case "tools":
-        return <ToolsContent currentUserRole={currentUserRole} />
-      case "communication":
-        return <CommunicationContent currentUserRole={currentUserRole} />
-      case "keranjang":
-        return <KeranjangContent cartItems={cartItems} onRemoveFromCart={removeFromCart} />
-      case "dana-cadangan":
-        return (
-          <DanaCadanganContent
-            currentUserRole={currentUserRole}
-            dummyPetaniReserveData={dummyPetaniReserveData}
-            dummyKonsumenReserveData={dummyKonsumenReserveData}
-          />
-        )
       case "layanan":
         return <LayananContent currentUserRole={currentUserRole} />
+      case "keranjang":
+        return <KeranjangContent cartItems={cartItems} onRemoveFromCart={removeFromCart} />
       case "profil":
-        return (
-          <ProfilContent
-            currentUserRole={currentUserRole}
-            dummyPetaniReserveData={dummyPetaniReserveData}
-            dummyKonsumenReserveData={dummyKonsumenReserveData}
-            onChangeRole={changeRole}
-            onLogout={logout}
-          />
-        )
+        return <ProfilContent currentUserRole={currentUserRole} />
       default:
-        return (
-          <div className="text-center py-8">
-            <p className="text-gray-500">Fitur tidak ditemukan.</p>
-          </div>
-        )
+        return <HomeContent currentUserRole={currentUserRole} />
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col max-w-md mx-auto relative">
-      <Header currentUserRole={currentUserRole} onChangeRole={changeRole} onLogout={logout} />
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <Header currentUserRole={currentUserRole} onRoleChange={() => setShowRoleSelection(true)} />
 
-      <main className="flex-1 p-3 sm:p-4 pb-20 sm:pb-24 overflow-x-hidden">{renderContent()}</main>
+      {/* Main Content */}
+      <main className="mobile-content">
+        <div className="mobile-container">{renderContent()}</div>
+      </main>
 
+      {/* Bottom Navigation */}
       <BottomNavigation
         currentUserRole={currentUserRole}
         activeFeature={activeFeature}

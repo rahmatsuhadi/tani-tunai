@@ -17,7 +17,7 @@ export function CrowdfarmingContent() {
   const [hasilInvestasi, setHasilInvestasi] = useState<any>(null)
 
   const hitungInvestasi = () => {
-    const project = investmentProjects.find((p) => p.value === selectedProject)
+    const project = investmentProjects.find((p) => p.id === selectedProject)
     const dukungan = Number.parseFloat(jumlahDukungan)
 
     if (!project || isNaN(dukungan) || dukungan <= 0) {
@@ -76,7 +76,7 @@ export function CrowdfarmingContent() {
               </SelectTrigger>
               <SelectContent>
                 {investmentProjects.map((project) => (
-                  <SelectItem key={project.id} value={project}>
+                  <SelectItem key={project.id} value={project.id}>
                     {project.name}
                   </SelectItem>
                 ))}

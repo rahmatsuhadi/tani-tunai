@@ -47,8 +47,8 @@ export function CrowdfarmingContent() {
           {
             data: [
               hasilInvestasi.persentaseDukungan,
-              (100 - hasilInvestasi.persentaseDukungan) * 0.8,
-              100 - hasilInvestasi.persentaseDukungan - (100 - hasilInvestasi.persentaseDukungan) * 0.8,
+              (1 - hasilInvestasi.persentaseDukungan) * 100 * 0.8,
+              100 - hasilInvestasi.persentaseDukungan - (1 - hasilInvestasi.persentaseDukungan) * 100 * 0.8,
             ],
             backgroundColor: ["#22c55e", "#3b82f6", "#fbbf24"],
             hoverOffset: 8,
@@ -78,7 +78,7 @@ export function CrowdfarmingContent() {
               <SelectContent>
                 {investmentProjects.map((project) => (
                   <SelectItem key={project.id} value={project.id}>
-                    {project.name}
+                   {` ${project.name} (${project.farmer}) `}
                   </SelectItem>
                 ))}
               </SelectContent>

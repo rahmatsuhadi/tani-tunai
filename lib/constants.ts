@@ -46,7 +46,7 @@ export const investmentProjects = [
     description: "Budidaya cabai rawit organik dengan sistem hidroponik modern",
     image: "/placeholder.svg?height=200&width=300",
     estimasiPanenKg: 1000,      // Total panen cabai rawit (kg)
-    estimasiHarga: 12000        // Harga jual per kg (Rp)
+    estimasiHarga: 20000        // Harga jual per kg (Rp)
   },
   {
     id: "2",

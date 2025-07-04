@@ -24,17 +24,19 @@ export function CrowdfarmingContent() {
       alert("Mohon pilih proyek dan masukkan jumlah dukungan valid.")
       return
     }
-     const persentaseDukungan = dukungan / project.targetAmount
+  const persentaseDukungan = dukungan / project.targetAmount
   const estimasiHasilPanenKg = project.estimasiPanenKg * persentaseDukungan
   const estimasiPendapatan = estimasiHasilPanenKg * project.estimasiHarga
   const potensiPengembalian = estimasiPendapatan - dukungan
 
+  
+
   setHasilInvestasi({
     project: project.name,
-    persentaseDukungan: (persentaseDukungan * 100).toFixed(2),
-    estimasiHasilPanenKg: estimasiHasilPanenKg.toFixed(2),
-    estimasiPendapatan: estimasiPendapatan.toFixed(2),
-    potensiPengembalian: potensiPengembalian.toFixed(2),
+    persentaseDukungan: persentaseDukungan,
+    estimasiHasilPanenKg: estimasiHasilPanenKg,
+    estimasiPendapatan: estimasiPendapatan,
+    potensiPengembalian: potensiPengembalian,
   })
   }
 

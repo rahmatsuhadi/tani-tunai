@@ -83,7 +83,11 @@ export default function TunaiTaniApp() {
       case "keranjang":
         return <KeranjangContent cartItems={cartItems} onRemoveFromCart={removeFromCart} />
       case "profil":
-        return <ProfilContent currentUserRole={currentUserRole} />
+        return <ProfilContent
+        currentUserRole={currentUserRole}
+        // currentUserRole={currentUserRole} }
+        dummyKonsumenReserveData={[]} 
+        dummyPetaniReserveData={[]} onChangeRole={() =>{}} onLogout={() =>{} } />
       default:
         return (
           <div className="text-center py-8">

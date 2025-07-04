@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Plus, Edit, Trash2, ShoppingBasket, SproutIcon as Seedling, Info } from "lucide-react"
 import type { UserRole, CartItem } from "@/types"
+import Image from "next/image"
 
 interface PreorderContentProps {
   currentUserRole: UserRole
@@ -45,7 +46,8 @@ export function PreorderContent({ currentUserRole, onAddToCart }: PreorderConten
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center justify-center">
-          <Seedling className="w-6 h-6 mr-2 text-green-600" />
+          {/* <Seedling className="w-6 h-6 mr-2 text-green-600" /> */}
+          <Image src="/logo.png" width={50} height={50} alt="brand"/>
           Pre-order Panen
         </h2>
       </div>
@@ -144,8 +146,9 @@ function KonsumenPreorderView({ dukunganAmounts, onDukunganChange, onAddToCart }
           name="Cabai Rawit"
           petani="Bapak Budi"
           emoji="🌶️"
-          bgColor="from-red-100 to-red-200"
-          textColor="text-red-600"
+          image="assets/cabai.jpg"
+          // bgColor="from-red-100 to-red-200"
+          // textColor="text-red-600"
           lahan="500 m²"
           panen="75 hari"
           modal="Rp 8.000.000"
@@ -161,8 +164,9 @@ function KonsumenPreorderView({ dukunganAmounts, onDukunganChange, onAddToCart }
           name="Bayam Merah"
           petani="Ibu Siti"
           emoji="🥬"
-          bgColor="from-green-100 to-green-200"
-          textColor="text-green-600"
+          image="assets/bayam.jpg"
+          // bgColor="from-green-100 to-green-200"
+          // textColor="text-green-600"
           lahan="200 m²"
           panen="30 hari"
           modal="Rp 2.000.000"
@@ -182,8 +186,9 @@ interface ProjectCardProps {
   name: string
   petani: string
   emoji: string
-  bgColor: string
-  textColor: string
+  // bgColor: string
+  // textColor: string
+  image:string
   lahan: string
   panen: string
   modal: string
@@ -198,9 +203,7 @@ function ProjectCard({
   id,
   name,
   petani,
-  emoji,
-  bgColor,
-  textColor,
+  image,
   lahan,
   panen,
   modal,
@@ -213,10 +216,17 @@ function ProjectCard({
   return (
     <Card className="hover:shadow-lg transition-shadow">
       <CardContent className="p-4">
-        <div className={`aspect-video bg-gradient-to-r ${bgColor} rounded-lg mb-3 flex items-center justify-center`}>
+        {/* <div className={`aspect-video bg-gradient-to-r ${bgColor} rounded-lg mb-3 flex items-center justify-center`}>
           <span className={`${textColor} font-semibold`}>
             {emoji} {name}
           </span>
+        </div> */}
+        <div className="aspect-video" style={{
+          background: `url('${image}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+          {/* <Image src={"assets/bayam.jpg"} alt={`alt-${name}`} width={100} height={100} /> */}
         </div>
         <h4 className="font-semibold mb-1">{name}</h4>
         <p className="text-sm text-gray-600 mb-2">👨‍🌾 {petani}</p>

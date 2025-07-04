@@ -12,6 +12,7 @@ import {
 import { UserCircle, RotateCcw, LogOut, SproutIcon as Seedling } from "lucide-react"
 import { useDeviceDetection } from "@/hooks/useDeviceDetection"
 import type { UserRole } from "@/types"
+import Image from "next/image"
 
 interface HeaderProps {
   currentUserRole: UserRole
@@ -87,9 +88,10 @@ export function Header({ currentUserRole, onChangeRole, onLogout }: HeaderProps)
     <header className={`bg-white shadow-sm border-b sticky top-0 z-50 safe-area-pt ${classes.container}`}>
       <div className="flex justify-between items-center h-full">
         <div className="flex items-center space-x-3">
-          <div className={`bg-green-600 rounded-full flex items-center justify-center ${classes.logo}`}>
-            <Seedling className="w-4 h-4 text-white" />
-          </div>
+          {/* <div className={`bg-green-600 rounded-full flex items-center justify-center ${classes.logo}`}> */}
+            {/* <Seedling className="w-4 h-4 text-white" /> */}
+            <Image src={"logo.png"} width={50} height={50} alt="brand"/>
+          {/* </div> */}
           <h1 className={`${classes.title} font-bold text-green-600`}>Tunai Tani</h1>
         </div>
 

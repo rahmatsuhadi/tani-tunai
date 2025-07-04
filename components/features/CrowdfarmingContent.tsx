@@ -32,7 +32,7 @@ export function CrowdfarmingContent() {
   
 
   setHasilInvestasi({
-    project: project.name,
+    project: `${project.name} (${project.farmer})`,
     persentaseDukungan: persentaseDukungan,
     estimasiHasilPanenKg: estimasiHasilPanenKg,
     estimasiPendapatan: estimasiPendapatan,
@@ -46,7 +46,7 @@ export function CrowdfarmingContent() {
         datasets: [
           {
             data: [
-              hasilInvestasi.persentaseDukungan,
+              hasilInvestasi.persentaseDukungan * 100,
               (1 - hasilInvestasi.persentaseDukungan) * 100 * 0.8,
               100 - hasilInvestasi.persentaseDukungan - (1 - hasilInvestasi.persentaseDukungan) * 100 * 0.8,
             ],
@@ -107,7 +107,7 @@ export function CrowdfarmingContent() {
                     <strong>Proyek:</strong> {hasilInvestasi.project}
                   </p>
                   <p>
-                    <strong>Proporsi dukungan:</strong> {hasilInvestasi.persentaseDukungan.toFixed(2)}%
+                    <strong>Proporsi dukungan:</strong> {(hasilInvestasi.persentaseDukungan * 100).toFixed(2)}%
                   </p>
                   <p>
                     <strong>Estimasi bagian panen:</strong> {hasilInvestasi.estimasiHasilPanenKg.toFixed(2)} kg

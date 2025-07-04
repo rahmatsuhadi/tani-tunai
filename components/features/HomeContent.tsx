@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { SproutIcon as Seedling, Handshake, BarChart3, Shield, Lightbulb } from "lucide-react"
 import type { UserRole } from "@/types"
+import Image from "next/image"
 
 interface HomeContentProps {
   currentUserRole: UserRole
@@ -11,8 +12,9 @@ export function HomeContent({ currentUserRole }: HomeContentProps) {
     <div className="space-y-6">
       <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
         <CardContent className="p-6 text-center">
-          <div className="w-20 h-20 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-            <Seedling className="w-10 h-10" />
+          <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center">
+            {/* <Seedling className="w-10 h-10" /> */}
+            <Image src="/logo.png" width={150} height={150} alt="brand"/>
           </div>
           <h2 className="text-2xl font-bold mb-2">
             Halo, {currentUserRole ? currentUserRole.charAt(0).toUpperCase() + currentUserRole.slice(1) : "Pengguna"}!

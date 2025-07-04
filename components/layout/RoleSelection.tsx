@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { User, Heart, SproutIcon as Seedling } from "lucide-react"
 import type { UserRole } from "@/types"
+import Image from "next/image"
 
 interface RoleSelectionProps {
   onSelectRole: (role: UserRole) => void
@@ -14,7 +15,7 @@ export function RoleSelection({ onSelectRole }: RoleSelectionProps) {
       <div className="text-center space-y-8 max-w-md w-full">
         <div className="space-y-4">
           <div className="w-32 h-32 mx-auto bg-white rounded-full shadow-2xl flex items-center justify-center">
-            <Seedling className="w-16 h-16 text-green-600" />
+            <Image src="/logo.png" width={150} height={150} alt="brand"/>
           </div>
           <h1 className="text-4xl font-bold text-white">Tunai Tani</h1>
           <p className="text-green-100 text-lg leading-relaxed">

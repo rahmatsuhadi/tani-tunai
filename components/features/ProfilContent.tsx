@@ -33,7 +33,7 @@ interface ProfilContentProps {
   dummyPetaniReserveData: ReserveDataPetani[]
   dummyKonsumenReserveData: ReserveDataKonsumen[]
   onChangeRole: () => void
-  onLogout: () => void
+  onLogout: () =>  void
 }
 
 export function ProfilContent({

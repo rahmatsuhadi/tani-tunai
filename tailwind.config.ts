@@ -20,12 +20,12 @@ const config: Config = {
     },
     extend: {
       screens: {
-        xs: "320px",
-        sm: "375px",
-        md: "390px",
-        lg: "428px",
-        xl: "768px",
-        "2xl": "1024px",
+        xs: "375px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -89,13 +89,11 @@ const config: Config = {
         "15": "3.75rem",
         "17": "4.25rem",
         "18": "4.5rem",
-        "19": "4.75rem",
       },
       height: {
         "15": "3.75rem",
         "17": "4.25rem",
         "18": "4.5rem",
-        "19": "4.75rem",
       },
     },
   },

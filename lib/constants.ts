@@ -1,64 +1,107 @@
-import { Home, ShoppingCart, Wrench, User, SproutIcon as Seedling } from "lucide-react"
-import type { NavigationItem, Project, ReserveDataPetani, ReserveDataKonsumen } from "@/types"
+import {
+  Home,
+  SproutIcon as Seedling,
+  Wrench,
+  ShoppingBasket,
+  User,
+  Calculator,
+  Coins,
+  TrendingUp,
+  MessageSquare,
+  ClipboardList,
+} from "lucide-react"
 
-export const navigationItems: NavigationItem[] = [
+export const navigationItems = [
+  { id: "beranda", label: "Beranda", icon: Home, roles: ["petani", "konsumen", "investor"] },
+  { id: "preorder", label: "Pre-order", icon: Seedling, roles: ["petani", "konsumen"] },
+  { id: "layanan", label: "Layanan", icon: Wrench, roles: ["petani", "konsumen"] },
+  { id: "keranjang", label: "Keranjang", icon: ShoppingBasket, roles: ["konsumen"] },
+  { id: "profil", label: "Profil", icon: User, roles: ["petani", "konsumen", "investor"] },
+]
+
+export const toolsItems = [
+  { id: "simulasi", label: "Simulasi", icon: Calculator, roles: ["petani"] },
+  { id: "investasi", label: "Investasi", icon: Coins, roles: ["konsumen"] },
+  { id: "rekomendasi", label: "Rekomendasi", icon: TrendingUp, roles: ["petani"] },
+]
+
+export const communicationItems = [
+  { id: "konsultasi", label: "Konsultasi", icon: MessageSquare, roles: ["petani"] },
+  { id: "chat", label: "Chat", icon: MessageSquare, roles: ["petani", "konsumen"] },
+  { id: "laporan", label: "Laporan", icon: ClipboardList, roles: ["petani", "konsumen"] },
+]
+
+export const investmentProjects = [
   {
-    id: "beranda",
-    label: "Beranda",
-    icon: Home,
-    roles: ["petani", "konsumen", "investor"],
+    id: "1",
+    name: "Cabai Rawit Organik",
+    farmer: "Bpk. Budi Santoso",
+    location: "Malang, Jawa Timur",
+    targetAmount: 8000000,
+    currentAmount: 4500000,
+    minInvestment: 100000,
+    expectedReturn: 15,
+    duration: "4 bulan",
+    riskLevel: "Sedang",
+    description: "Budidaya cabai rawit organik dengan sistem hidroponik modern",
+    image: "/placeholder.svg?height=200&width=300",
   },
   {
-    id: "preorder",
-    label: "Pre-order",
-    icon: Seedling,
-    roles: ["petani", "konsumen", "investor"],
-  },
-  {
-    id: "layanan",
-    label: "Layanan",
-    icon: Wrench,
-    roles: ["petani", "konsumen", "investor"],
-  },
-  {
-    id: "keranjang",
-    label: "Keranjang",
-    icon: ShoppingCart,
-    roles: ["konsumen"],
-  },
-  {
-    id: "profil",
-    label: "Profil",
-    icon: User,
-    roles: ["petani", "konsumen", "investor"],
+    id: "2",
+    name: "Bayam Merah Premium",
+    farmer: "Ibu Siti Aminah",
+    location: "Bandung, Jawa Barat",
+    targetAmount: 3000000,
+    currentAmount: 1800000,
+    minInvestment: 50000,
+    expectedReturn: 12,
+    duration: "2 bulan",
+    riskLevel: "Rendah",
+    description: "Budidaya bayam merah premium untuk pasar ekspor",
+    image: "/placeholder.svg?height=200&width=300",
   },
 ]
 
-export const investmentProjects: Project[] = [
+export const preorderProjects = [
   {
-    value: "cabai-rawit",
-    label: "Cabai Rawit (Bapak Budi)",
-    modal: 8000000,
-    estimasiPanenKg: 400,
-    estimasiHarga: 20000,
+    id: "1",
+    name: "Cabai Rawit",
+    farmer: "Bpk. Budi",
+    location: "Malang",
+    pricePerKg: 25000,
+    estimatedHarvest: "2024-08-15",
+    minOrder: 5,
+    maxOrder: 50,
+    description: "Cabai rawit segar langsung dari petani",
+    image: "/placeholder.svg?height=200&width=300",
   },
   {
-    value: "bayam-merah",
-    label: "Bayam Merah (Ibu Siti)",
-    modal: 2000000,
-    estimasiPanenKg: 100,
-    estimasiHarga: 25000,
+    id: "2",
+    name: "Bayam Merah",
+    farmer: "Ibu Siti",
+    location: "Bandung",
+    pricePerKg: 15000,
+    estimatedHarvest: "2024-07-20",
+    minOrder: 3,
+    maxOrder: 30,
+    description: "Bayam merah organik berkualitas tinggi",
+    image: "/placeholder.svg?height=200&width=300",
   },
   {
-    value: "wortel-organik",
-    label: "Wortel Organik (Bapak Joni)",
-    modal: 5000000,
-    estimasiPanenKg: 250,
-    estimasiHarga: 22000,
+    id: "3",
+    name: "Timun Hibrida",
+    farmer: "Bpk. Joko",
+    location: "Yogyakarta",
+    pricePerKg: 12000,
+    estimatedHarvest: "2024-07-30",
+    minOrder: 10,
+    maxOrder: 100,
+    description: "Timun hibrida renyah dan segar",
+    image: "/placeholder.svg?height=200&width=300",
   },
 ]
 
-export const dummyPetaniReserveData: ReserveDataPetani[] = [
+export const dummyPetaniReserveData = [
   {
     projectId: "1",
     projectName: "Cabai Rawit",
@@ -73,7 +116,7 @@ export const dummyPetaniReserveData: ReserveDataPetani[] = [
   },
 ]
 
-export const dummyKonsumenReserveData: ReserveDataKonsumen[] = [
+export const dummyKonsumenReserveData = [
   {
     orderId: "ORD001",
     projectName: "Cabai Rawit (Bpk. Budi)",
@@ -98,43 +141,5 @@ export const dummyKonsumenReserveData: ReserveDataKonsumen[] = [
     status: "Pengembalian Dana",
     refundAmount: 2500,
     date: "2024-06-01",
-  },
-]
-
-export const komoditasData = [
-  { name: "Padi", trend: "naik", price: "Rp 6.500/kg", change: "+5%" },
-  { name: "Jagung", trend: "turun", price: "Rp 4.200/kg", change: "-2%" },
-  { name: "Kedelai", trend: "naik", price: "Rp 8.500/kg", change: "+8%" },
-  { name: "Cabai", trend: "naik", price: "Rp 35.000/kg", change: "+15%" },
-  { name: "Bawang Merah", trend: "turun", price: "Rp 28.000/kg", change: "-3%" },
-]
-
-export const pakarData = [
-  {
-    id: 1,
-    name: "Dr. Siti Nurhaliza",
-    specialty: "Ahli Tanaman Pangan",
-    rating: 4.8,
-    experience: "15 tahun",
-    avatar: "/placeholder-user.jpg",
-    status: "online",
-  },
-  {
-    id: 2,
-    name: "Prof. Budi Santoso",
-    specialty: "Ahli Hama & Penyakit",
-    rating: 4.9,
-    experience: "20 tahun",
-    avatar: "/placeholder-user.jpg",
-    status: "online",
-  },
-  {
-    id: 3,
-    name: "Dr. Maya Sari",
-    specialty: "Ahli Nutrisi Tanaman",
-    rating: 4.7,
-    experience: "12 tahun",
-    avatar: "/placeholder-user.jpg",
-    status: "offline",
   },
 ]

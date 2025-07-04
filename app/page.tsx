@@ -1,42 +1,48 @@
 "use client"
 
 import { useState } from "react"
+import { RoleSelection } from "@/components/layout/RoleSelection"
 import { Header } from "@/components/layout/Header"
 import { BottomNavigation } from "@/components/layout/BottomNavigation"
-import { RoleSelection } from "@/components/layout/RoleSelection"
-import { DesktopWarning } from "@/components/layout/DesktopWarning"
 import { HomeContent } from "@/components/features/HomeContent"
 import { PreorderContent } from "@/components/features/PreorderContent"
 import { LayananContent } from "@/components/features/LayananContent"
 import { KeranjangContent } from "@/components/features/KeranjangContent"
 import { ProfilContent } from "@/components/features/ProfilContent"
 import { useLocalStorage } from "@/hooks/useLocalStorage"
-import { useDeviceDetection } from "@/hooks/useDeviceDetection"
 import type { UserRole, ActiveFeature, CartItem } from "@/types"
+import { useDeviceDetection } from "@/hooks/useDeviceDetection"
+import { DesktopWarning } from "@/components/layout/DesktopWarning"
 
 export default function TunaiTaniApp() {
-  const { isMobile } = useDeviceDetection()
-  const [currentUserRole, setCurrentUserRole] = useLocalStorage<UserRole>("userRole", null)
+  const [currentUserRole, setCurrentUserRole] = useState<UserRole>(null)
   const [activeFeature, setActiveFeature] = useState<ActiveFeature>("beranda")
-  const [showRoleSelection, setShowRoleSelection] = useState(false)
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("cartItems", [])
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("tunaiTaniCart", [])
+  const [showRoleSelection, setShowRoleSelection] = useState(true)
 
-  // Show desktop warning if not mobile/tablet
-  if (!isMobile) {
+  const { isMobileOrTablet } = useDeviceDetection()
+
+  // Show desktop warning if not mobile or tablet
+  if (!isMobileOrTablet) {
     return <DesktopWarning />
   }
 
-  // Show role selection if no role is selected
-  if (!currentUserRole || showRoleSelection) {
-    return (
-      <RoleSelection
-        onSelectRole={(role) => {
-          setCurrentUserRole(role)
-          setShowRoleSelection(false)
-          setActiveFeature("beranda")
-        }}
-      />
-    )
+  const selectRole = (role: UserRole) => {
+    setCurrentUserRole(role)
+    setShowRoleSelection(false)
+    setActiveFeature("beranda")
+  }
+
+  const changeRole = () => {
+    setCurrentUserRole(null)
+    setShowRoleSelection(true)
+    setCartItems([])
+  }
+
+  const logout = () => {
+    setCurrentUserRole(null)
+    setShowRoleSelection(true)
+    setCartItems([])
   }
 
   const addToCart = (item: Omit<CartItem, "reserveFund"> & { amount: number }) => {
@@ -62,6 +68,10 @@ export default function TunaiTaniApp() {
     setCartItems(updatedCart)
   }
 
+  if (showRoleSelection) {
+    return <RoleSelection onSelectRole={selectRole} />
+  }
+
   const renderContent = () => {
     switch (activeFeature) {
       case "beranda":
@@ -75,21 +85,20 @@ export default function TunaiTaniApp() {
       case "profil":
         return <ProfilContent currentUserRole={currentUserRole} />
       default:
-        return <HomeContent currentUserRole={currentUserRole} />
+        return (
+          <div className="text-center py-8">
+            <p className="text-gray-500">Fitur tidak ditemukan.</p>
+          </div>
+        )
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <Header currentUserRole={currentUserRole} onRoleChange={() => setShowRoleSelection(true)} />
+    <div className="min-h-screen bg-gray-50 flex flex-col max-w-md mx-auto relative">
+      <Header currentUserRole={currentUserRole} onChangeRole={changeRole} onLogout={logout} />
 
-      {/* Main Content */}
-      <main className="mobile-content">
-        <div className="mobile-container">{renderContent()}</div>
-      </main>
+      <main className="flex-1 p-3 sm:p-4 pb-20 sm:pb-24 overflow-x-hidden">{renderContent()}</main>
 
-      {/* Bottom Navigation */}
       <BottomNavigation
         currentUserRole={currentUserRole}
         activeFeature={activeFeature}

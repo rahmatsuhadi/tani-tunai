@@ -1,100 +1,126 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Bell, Settings, LogOut, User } from "lucide-react"
+import { UserCircle, RotateCcw, LogOut, SproutIcon as Seedling } from "lucide-react"
+import { useDeviceDetection } from "@/hooks/useDeviceDetection"
 import type { UserRole } from "@/types"
 
 interface HeaderProps {
   currentUserRole: UserRole
-  onRoleChange: () => void
+  onChangeRole: () => void
+  onLogout: () => void
 }
 
-export function Header({ currentUserRole, onRoleChange }: HeaderProps) {
-  const getRoleLabel = (role: UserRole) => {
-    switch (role) {
-      case "petani":
-        return "Petani"
-      case "konsumen":
-        return "Konsumen"
-      case "investor":
-        return "Investor"
-      default:
-        return "User"
+export function Header({ currentUserRole, onChangeRole, onLogout }: HeaderProps) {
+  const { screenWidth } = useDeviceDetection()
+
+  // Responsive classes based on screen width
+  const getResponsiveClasses = () => {
+    if (screenWidth <= 374) {
+      return {
+        container: "h-14 px-3",
+        logo: "w-6 h-6",
+        title: "text-lg",
+        badge: "text-xs px-2 py-1",
+        button: "w-8 h-8",
+        icon: "w-5 h-5",
+      }
+    } else if (screenWidth <= 389) {
+      return {
+        container: "h-15 px-4",
+        logo: "w-7 h-7",
+        title: "text-lg",
+        badge: "text-xs px-2 py-1",
+        button: "w-9 h-9",
+        icon: "w-5 h-5",
+      }
+    } else if (screenWidth <= 427) {
+      return {
+        container: "h-16 px-4",
+        logo: "w-8 h-8",
+        title: "text-xl",
+        badge: "text-xs px-2 py-1",
+        button: "w-10 h-10",
+        icon: "w-6 h-6",
+      }
+    } else if (screenWidth <= 479) {
+      return {
+        container: "h-17 px-5",
+        logo: "w-8 h-8",
+        title: "text-xl",
+        badge: "text-sm px-3 py-1",
+        button: "w-10 h-10",
+        icon: "w-6 h-6",
+      }
+    } else if (screenWidth <= 767) {
+      return {
+        container: "h-18 px-6",
+        logo: "w-9 h-9",
+        title: "text-2xl",
+        badge: "text-sm px-3 py-1",
+        button: "w-11 h-11",
+        icon: "w-6 h-6",
+      }
+    } else {
+      return {
+        container: "h-20 px-8",
+        logo: "w-10 h-10",
+        title: "text-2xl",
+        badge: "text-sm px-4 py-2",
+        button: "w-12 h-12",
+        icon: "w-7 h-7",
+      }
     }
   }
 
-  const getRoleColor = (role: UserRole) => {
-    switch (role) {
-      case "petani":
-        return "bg-green-100 text-green-800"
-      case "konsumen":
-        return "bg-blue-100 text-blue-800"
-      case "investor":
-        return "bg-purple-100 text-purple-800"
-      default:
-        return "bg-gray-100 text-gray-800"
-    }
-  }
+  const classes = getResponsiveClasses()
 
   return (
-    <header className="mobile-header">
-      <div className="flex items-center justify-between h-full">
-        {/* Logo & Title */}
-        <div className="flex items-center space-x-2">
-          <img src="/placeholder-logo.png" alt="Tunai Tani" className="w-8 h-8 sm:w-10 sm:h-10" />
-          <div>
-            <h1 className="text-responsive-lg font-bold text-green-700">Tunai Tani</h1>
-            <Badge className={cn("text-xs hidden sm:inline-flex", getRoleColor(currentUserRole))}>
-              {getRoleLabel(currentUserRole)}
-            </Badge>
+    <header className={`bg-white shadow-sm border-b sticky top-0 z-50 safe-area-pt ${classes.container}`}>
+      <div className="flex justify-between items-center h-full">
+        <div className="flex items-center space-x-3">
+          <div className={`bg-green-600 rounded-full flex items-center justify-center ${classes.logo}`}>
+            <Seedling className="w-4 h-4 text-white" />
           </div>
+          <h1 className={`${classes.title} font-bold text-green-600`}>Tunai Tani</h1>
         </div>
 
-        {/* User Actions */}
         <div className="flex items-center space-x-2">
-          {/* Notifications */}
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs"></span>
-          </Button>
+          {/* Role Badge - Hidden on very small screens */}
+          {screenWidth > 374 && (
+            <div className={`px-3 py-1 bg-green-100 rounded-full ${classes.badge}`}>
+              <span className="font-medium text-green-700">
+                {currentUserRole ? currentUserRole.charAt(0).toUpperCase() + currentUserRole.slice(1) : "Guest"}
+              </span>
+            </div>
+          )}
 
-          {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="/placeholder-user.jpg" />
-                  <AvatarFallback>
-                    <User className="w-4 h-4" />
-                  </AvatarFallback>
-                </Avatar>
-                <span className="hidden sm:inline text-sm font-medium">{getRoleLabel(currentUserRole)}</span>
+              <Button variant="ghost" size="sm" className={`${classes.button} p-0`}>
+                <UserCircle className={classes.icon} />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem>
-                <User className="w-4 h-4 mr-2" />
-                Profil Saya
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="w-4 h-4 mr-2" />
-                Pengaturan
-              </DropdownMenuItem>
+              <DropdownMenuLabel>
+                {currentUserRole ? currentUserRole.charAt(0).toUpperCase() + currentUserRole.slice(1) : "Guest"}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={onRoleChange}>
-                <LogOut className="w-4 h-4 mr-2" />
+              <DropdownMenuItem onClick={onChangeRole}>
+                <RotateCcw className="w-4 h-4 mr-2" />
                 Ganti Role
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={onLogout} className="text-red-600">
+                <LogOut className="w-4 h-4 mr-2" />
+                Keluar
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

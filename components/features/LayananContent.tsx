@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calculator, Coins, TrendingUp, Users, MessageSquare, ClipboardList } from "lucide-react"
+import { Calculator, Coins, TrendingUp, Users, MessageSquare, ClipboardList, UsersRound } from "lucide-react"
 import { SimulasiContent } from "./SimulasiContent"
 import { CrowdfarmingContent } from "./CrowdfarmingContent"
 import { RekomendasiContent } from "./RekomendasiContent"
@@ -11,6 +11,7 @@ import { KonsultasiContent } from "./KonsultasiContent"
 import { ChatContent } from "./ChatContent"
 import { LaporanContent } from "./LaporanContent"
 import type { UserRole, LayananSubFeature } from "@/types"
+import { NearbyFarmers } from "./NearbyFarmer"
 
 interface LayananContentProps {
   currentUserRole: UserRole
@@ -52,7 +53,7 @@ export function LayananContent({ currentUserRole }: LayananContentProps) {
       label: "Konsultasi Pakar",
       icon: Users,
       description: "Chat dengan ahli pertanian",
-      roles: ["petani", "konsumen"],
+      roles: ["petani"],
       color: "bg-purple-500",
       category: "Komunikasi",
       badge: "2 Pakar Online",
@@ -77,6 +78,15 @@ export function LayananContent({ currentUserRole }: LayananContentProps) {
       category: "Komunikasi",
       badge: "5 Laporan",
     },
+    {
+      id: "petani-terdekat" as LayananSubFeature,      
+      label: "Petani Terdekat",
+      icon: UsersRound,
+      description: "Petani terdekat untuk Konsumen",
+      roles: ["konsumen"],
+      color: "bg-yellow-500",
+      category: "Alat Bantu",
+    }
   ]
 
   const availableServices = layananItems.filter((service) => currentUserRole && service.roles.includes(currentUserRole))
@@ -104,9 +114,11 @@ export function LayananContent({ currentUserRole }: LayananContentProps) {
       case "konsultasi":
         return <KonsultasiContent />
       case "chat":
-        return <ChatContent />
+        return <ChatContent currentUserRole={currentUserRole} />
       case "laporan":
         return <LaporanContent currentUserRole={currentUserRole} />
+      case "petani-terdekat":
+        return <NearbyFarmers />
       default:
         return null
     }

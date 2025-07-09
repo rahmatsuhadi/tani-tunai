@@ -2,7 +2,7 @@ export type UserRole = "petani" | "konsumen" | null
 
 export type ActiveFeature = "home" | "preorder" | "layanan" | "keranjang" | "profil" | "beranda"
 
-export type LayananSubFeature = "simulasi" | "crowdfarming" | "rekomendasi" | "konsultasi" | "chat" | "laporan"
+export type LayananSubFeature = "simulasi" | "crowdfarming" | "rekomendasi" | "konsultasi" | "chat" | "laporan" | "petani-terdekat"
 export type ProfilSubFeature = "dana-cadangan" | "pengaturan" | "bantuan"
 
 export interface CartItem {

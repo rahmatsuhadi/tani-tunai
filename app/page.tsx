@@ -10,9 +10,83 @@ import { LayananContent } from "@/components/features/LayananContent"
 import { KeranjangContent } from "@/components/features/KeranjangContent"
 import { ProfilContent } from "@/components/features/ProfilContent"
 import { useLocalStorage } from "@/hooks/useLocalStorage"
-import type { UserRole, ActiveFeature, CartItem } from "@/types"
+import type { UserRole, ActiveFeature, CartItem, ReserveDataPetani, ReserveDataKonsumen } from "@/types"
 import { useDeviceDetection } from "@/hooks/useDeviceDetection"
 import { DesktopWarning } from "@/components/layout/DesktopWarning"
+import { dummyKonsumenReserveData, dummyPetaniReserveData } from "@/lib/constants"
+
+
+export const reserveDataPetani: ReserveDataPetani[] = [
+  {
+    projectId: "PROJ-001",
+    projectName: "Cabai Merah Organik",
+    totalContribution: 15000000, // Total kontribusi dalam Rupiah
+    reserveAmount: 2500000,      // Jumlah yang dialokasikan sebagai cadangan
+  },
+  {
+    projectId: "PROJ-002",
+    projectName: "Tomat Cherry Unggul",
+    totalContribution: 8000000,
+    reserveAmount: 1000000,
+  },
+  {
+    projectId: "PROJ-003",
+    projectName: "Bawang Merah Panen Raya",
+    totalContribution: 22000000,
+    reserveAmount: 3500000,
+  },
+  {
+    projectId: "PROJ-004",
+    projectName: "Kangkung Hidroponik",
+    totalContribution: 3000000,
+    reserveAmount: 500000,
+  },
+];
+
+export const reserveDataKonsumen: ReserveDataKonsumen[] = [
+  {
+    orderId: "ORD-K001-CBM",
+    projectName: "Cabai Merah Organik",
+    contributionAmount: 500000,
+    reserveAllocated: 50000,
+    status: "Active",
+    date: "2024-03-10",
+  },
+  {
+    orderId: "ORD-K002-TCU",
+    projectName: "Tomat Cherry Unggul",
+    contributionAmount: 200000,
+    reserveAllocated: 20000,
+    status: "Completed",
+    date: "2024-04-20",
+  },
+  {
+    orderId: "ORD-K003-BMR",
+    projectName: "Bawang Merah Panen Raya",
+    contributionAmount: 1000000,
+    reserveAllocated: 100000,
+    status: "Active",
+    date: "2024-05-01",
+  },
+  {
+    orderId: "ORD-K004-KNG",
+    projectName: "Kangkung Hidroponik",
+    contributionAmount: 150000,
+    reserveAllocated: 0, // Contoh tanpa alokasi cadangan
+    status: "Refunded",
+    date: "2024-06-15",
+    refundAmount: 150000, // Ada pengembalian dana
+  },
+  {
+    orderId: "ORD-K005-CBM",
+    projectName: "Cabai Merah Organik",
+    contributionAmount: 750000,
+    reserveAllocated: 75000,
+    status: "Pending",
+    date: "2025-07-01", // Tanggal di masa depan (setelah tanggal hari ini)
+  },
+];
+
 
 export default function TunaiTaniApp() {
   const [currentUserRole, setCurrentUserRole] = useState<UserRole>(null)
@@ -86,8 +160,10 @@ export default function TunaiTaniApp() {
         return <ProfilContent
         currentUserRole={currentUserRole}
         // currentUserRole={currentUserRole} }
-        dummyKonsumenReserveData={[]} 
-        dummyPetaniReserveData={[]} onChangeRole={() =>{}} onLogout={() =>{} } />
+        dummyKonsumenReserveData={dummyKonsumenReserveData} 
+        dummyPetaniReserveData={dummyPetaniReserveData} 
+        
+        onChangeRole={() =>{}} onLogout={() =>{} } />
       default:
         return (
           <div className="text-center py-8">

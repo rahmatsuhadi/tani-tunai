@@ -12,7 +12,7 @@ export function DesktopWarning() {
             <Smartphone className="w-12 h-12 text-green-600" />
             <Tablet className="w-12 h-12 text-green-600" />
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-800">Tunai Tani</CardTitle>
+          <CardTitle className="text-2xl font-bold text-gray-800">Order Tani</CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-4">
           <p className="text-gray-600">Aplikasi ini dioptimalkan untuk perangkat mobile dan tablet.</p>

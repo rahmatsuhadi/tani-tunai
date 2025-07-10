@@ -41,7 +41,7 @@ export function ChatContent({currentUserRole}:ChatContentProps) {
     },
     {
       id: "3",
-      name: "Tim Support Tunai Tani",
+      name: "Tim Support Order Tani",
       lastMessage: "Ada yang bisa kami bantu?",
       timestamp: "3 hari lalu",
       unread: 1,

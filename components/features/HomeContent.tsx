@@ -19,7 +19,7 @@ export function HomeContent({ currentUserRole }: HomeContentProps) {
           <h2 className="text-2xl font-bold mb-2">
             Halo, {currentUserRole ? currentUserRole.charAt(0).toUpperCase() + currentUserRole.slice(1) : "Pengguna"}!
           </h2>
-          <p className="text-green-100">Selamat datang di Tunai Tani, platform yang mendukung pertanian Indonesia.</p>
+          <p className="text-green-100">Selamat datang di Order Tani, platform yang mendukung pertanian Indonesia.</p>
         </CardContent>
       </Card>
 

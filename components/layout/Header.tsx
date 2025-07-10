@@ -92,7 +92,7 @@ export function Header({ currentUserRole, onChangeRole, onLogout }: HeaderProps)
             {/* <Seedling className="w-4 h-4 text-white" /> */}
             <Image src={"logo.png"} width={50} height={50} alt="brand"/>
           {/* </div> */}
-          <h1 className={`${classes.title} font-bold text-green-600`}>Tunai Tani</h1>
+          <h1 className={`${classes.title} font-bold text-green-600`}>Order Tani</h1>
         </div>
 
         <div className="flex items-center space-x-2">
